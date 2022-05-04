@@ -7,6 +7,8 @@ pub enum Error {
 
 pub type Vector = Vec<f32>;
 
+// TODO: define macro to assert length
+
 pub fn add(v: &Vector, w: &Vector) -> Result<Vector, Error> {
     if v.len() != w.len() {
         return Err(Error::MismatchLen);
@@ -47,9 +49,23 @@ pub fn mul(v: &Vector, s: f32) -> Vector {
     t
 }
 
+pub fn dot(v: &Vector, w: &Vector) -> Result<f32, Error> {
+    if v.len() != w.len() {
+        return Err(Error::MismatchLen);
+    }
+
+    let mut product = 0.0;
+    let dim = v.len();
+    for i in 0..dim {
+        product += v[i] * w[i];
+    }
+
+    Ok(product)
+}
+
 #[cfg(test)]
 mod tests {
-    use crate::vector::{add, mul, sub, Error};
+    use crate::vector::{add, dot, mul, sub, Error};
 
     #[test]
     fn add_error() {
@@ -97,5 +113,23 @@ mod tests {
         let got = mul(&v, s);
         let expect = vec![2.0, 4.0, 6.0];
         assert_eq!(expect, got);
+    }
+
+    #[test]
+    fn dot_err() {
+        let v = vec![1.0, 2.0, 3.0];
+        let w = vec![1.0, 2.0];
+
+        let got_err = dot(&v, &w).unwrap_err();
+        assert_eq!(Error::MismatchLen, got_err)
+    }
+
+    #[test]
+    fn dot_ok() {
+        let v = vec![1.0, 2.0, 3.0];
+        let w = vec![1.0, 2.0, 3.0];
+
+        let product = dot(&v, &w).unwrap();
+        assert_eq!(14.0, product)
     }
 }
