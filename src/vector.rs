@@ -37,9 +37,19 @@ pub fn sub(v: &Vector, w: &Vector) -> Result<Vector, Error> {
     Ok(t)
 }
 
+pub fn mul(v: &Vector, s: f32) -> Vector {
+    let dim = v.len();
+    let mut t = vec![0.0; dim];
+    for i in 0..dim {
+        t[i] = v[i] * s;
+    }
+
+    t
+}
+
 #[cfg(test)]
 mod tests {
-    use crate::vector::{add, sub, Error};
+    use crate::vector::{add, mul, sub, Error};
 
     #[test]
     fn add_error() {
@@ -77,5 +87,15 @@ mod tests {
         let got = sub(&v, &w).unwrap();
         let expect = vec![-1.0, 1.0, 2.0];
         assert_eq!(expect, got)
+    }
+
+    #[test]
+    fn mul_ok() {
+        let v = vec![1.0, 2.0, 3.0];
+        let s = 2.0;
+
+        let got = mul(&v, s);
+        let expect = vec![2.0, 4.0, 6.0];
+        assert_eq!(expect, got);
     }
 }
