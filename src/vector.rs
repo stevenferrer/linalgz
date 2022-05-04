@@ -1,8 +1,9 @@
 use std::fmt;
+use std::ops::Mul;
 
 #[derive(PartialEq, Debug, Clone)]
 pub enum Error {
-    MismatchLen,
+    LenMismatch,
 }
 
 pub type Vector = Vec<f32>;
@@ -11,11 +12,11 @@ pub type Vector = Vec<f32>;
 
 pub fn add(v: &Vector, w: &Vector) -> Result<Vector, Error> {
     if v.len() != w.len() {
-        return Err(Error::MismatchLen);
+        return Err(Error::LenMismatch);
     }
 
     let dim = v.len();
-    let mut t = vec![0.0; dim];
+    let mut t = vec![0.; dim];
 
     for i in 0..dim {
         t[i] = v[i] + w[i];
@@ -26,11 +27,11 @@ pub fn add(v: &Vector, w: &Vector) -> Result<Vector, Error> {
 
 pub fn sub(v: &Vector, w: &Vector) -> Result<Vector, Error> {
     if v.len() != w.len() {
-        return Err(Error::MismatchLen);
+        return Err(Error::LenMismatch);
     }
 
     let dim = v.len();
-    let mut t = vec![0.0; dim];
+    let mut t = vec![0.; dim];
 
     for i in 0..dim {
         t[i] = v[i] - w[i];
@@ -41,7 +42,7 @@ pub fn sub(v: &Vector, w: &Vector) -> Result<Vector, Error> {
 
 pub fn mul(v: &Vector, s: f32) -> Vector {
     let dim = v.len();
-    let mut t = vec![0.0; dim];
+    let mut t = vec![0.; dim];
     for i in 0..dim {
         t[i] = v[i] * s;
     }
@@ -51,10 +52,10 @@ pub fn mul(v: &Vector, s: f32) -> Vector {
 
 pub fn dot(v: &Vector, w: &Vector) -> Result<f32, Error> {
     if v.len() != w.len() {
-        return Err(Error::MismatchLen);
+        return Err(Error::LenMismatch);
     }
 
-    let mut prod = 0.0;
+    let mut prod = 0.;
     let dim = v.len();
     for i in 0..dim {
         prod += v[i] * w[i];
@@ -64,7 +65,7 @@ pub fn dot(v: &Vector, w: &Vector) -> Result<f32, Error> {
 }
 
 pub fn norm(v: &Vector) -> f32 {
-    let mut prod = 0.0;
+    let mut prod = 0.;
     for e in v.iter() {
         prod += e * e;
     }
@@ -72,81 +73,106 @@ pub fn norm(v: &Vector) -> f32 {
     prod.sqrt()
 }
 
+pub fn e_mul(v: &Vector, w: &Vector) -> Result<Vector, Error> {
+    if v.len() != w.len() {
+        return Err(Error::LenMismatch);
+    }
+
+    let dim = v.len();
+    let mut t = vec![0.; dim];
+
+    for i in 0..dim {
+        t[i] = v[i] * w[i];
+    }
+
+    Ok(t)
+}
+
 #[cfg(test)]
 mod tests {
-    use crate::vector::{add, dot, mul, norm, sub, Error};
+    use crate::vector::{add, dot, e_mul, mul, norm, sub, Error};
 
     #[test]
     fn add_error() {
-        let v = vec![1.0, 2.0, 3.0];
-        let w = vec![1.0, 2.0];
+        let v = vec![1., 2., 3.];
+        let w = vec![1., 2.];
 
         let got_err = add(&v, &w).unwrap_err();
-        assert_eq!(Error::MismatchLen, got_err)
+        assert_eq!(Error::LenMismatch, got_err)
     }
 
     #[test]
     fn add_ok() {
-        let v = vec![1.0, 2.0, 3.0];
-        let w = vec![1.0, 2.0, 3.0];
+        let v = vec![1., 2., 3.];
+        let w = vec![1., 2., 3.];
 
         let got = add(&v, &w).unwrap();
-        let expect = vec![2.0, 4.0, 6.0];
+        let expect = vec![2., 4., 6.];
         assert_eq!(expect, got)
     }
 
     #[test]
     fn sub_error() {
-        let v = vec![1.0, 2.0, 3.0];
-        let w = vec![1.0, 2.0];
+        let v = vec![1., 2., 3.];
+        let w = vec![1., 2.];
 
         let got_err = sub(&v, &w).unwrap_err();
-        assert_eq!(Error::MismatchLen, got_err)
+        assert_eq!(Error::LenMismatch, got_err)
     }
 
     #[test]
     fn sub_ok() {
-        let v = vec![1.0, 3.0, 5.0];
-        let w = vec![2.0, 2.0, 3.0];
+        let v = vec![1., 3., 5.];
+        let w = vec![2., 2., 3.];
 
         let got = sub(&v, &w).unwrap();
-        let expect = vec![-1.0, 1.0, 2.0];
+        let expect = vec![-1., 1., 2.];
         assert_eq!(expect, got)
     }
 
     #[test]
     fn mul_ok() {
-        let v = vec![1.0, 2.0, 3.0];
-        let s = 2.0;
+        let v = vec![1., 2., 3.];
+        let s = 2.;
 
         let got = mul(&v, s);
-        let expect = vec![2.0, 4.0, 6.0];
+        let expect = vec![2., 4., 6.];
         assert_eq!(expect, got);
     }
 
     #[test]
     fn dot_err() {
-        let v = vec![1.0, 2.0, 3.0];
-        let w = vec![1.0, 2.0];
+        let v = vec![1., 2., 3.];
+        let w = vec![1., 2.];
 
         let got_err = dot(&v, &w).unwrap_err();
-        assert_eq!(Error::MismatchLen, got_err)
+        assert_eq!(Error::LenMismatch, got_err)
     }
 
     #[test]
     fn dot_ok() {
-        let v = vec![1.0, 2.0, 3.0];
-        let w = vec![1.0, 2.0, 3.0];
+        let v = vec![1., 2., 3.];
+        let w = vec![1., 2., 3.];
 
         let prod = dot(&v, &w).unwrap();
-        assert_eq!(14.0, prod)
+        assert_eq!(14., prod)
     }
 
     #[test]
     fn norm_ok() {
-        let v = vec![1.0, 2.0, 3.0];
+        let v = vec![1., 2., 3.];
 
         let mag = norm(&v);
         assert_eq!(3.7416575, mag);
+    }
+
+    #[test]
+    fn ew_mul_ok() {
+        let v = vec![1., 3., 5.];
+        let w = vec![2., 2., 3.];
+
+        let got = e_mul(&v, &w).unwrap();
+        let expect = vec![2., 6., 15.];
+        assert_eq!(expect, got)
     }
 }
