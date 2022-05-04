@@ -88,9 +88,23 @@ pub fn e_mul(v: &Vector, w: &Vector) -> Result<Vector, Error> {
     Ok(t)
 }
 
+pub fn outer(v: &Vector, w: &Vector) -> Vec<Vec<f32>> {
+    let mut mat: Vec<Vec<f32>> = Vec::with_capacity(v.len());
+
+    for ve in v.iter() {
+        let mut row: Vec<f32> = Vec::with_capacity(w.len());
+        for we in w.iter() {
+            row.push(ve * we);
+        }
+        mat.push(row)
+    }
+
+    mat
+}
+
 #[cfg(test)]
 mod tests {
-    use crate::vector::{add, dot, e_mul, mul, norm, sub, Error};
+    use crate::vector::{add, dot, e_mul, mul, norm, outer, sub, Error};
 
     #[test]
     fn add_error() {
@@ -173,6 +187,18 @@ mod tests {
 
         let got = e_mul(&v, &w).unwrap();
         let expect = vec![2., 6., 15.];
+        assert_eq!(expect, got)
+    }
+
+    #[test]
+    fn outer_ok() {
+        let v = vec![1., 2., 3.];
+        let w = vec![2., 4., 6.];
+
+        let got = outer(&v, &w);
+
+        let expect = vec![vec![2., 4., 6.], vec![4., 8., 12.], vec![6., 12., 18.]];
+
         assert_eq!(expect, got)
     }
 }
