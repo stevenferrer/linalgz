@@ -54,18 +54,27 @@ pub fn dot(v: &Vector, w: &Vector) -> Result<f32, Error> {
         return Err(Error::MismatchLen);
     }
 
-    let mut product = 0.0;
+    let mut prod = 0.0;
     let dim = v.len();
     for i in 0..dim {
-        product += v[i] * w[i];
+        prod += v[i] * w[i];
     }
 
-    Ok(product)
+    Ok(prod)
+}
+
+pub fn norm(v: &Vector) -> f32 {
+    let mut prod = 0.0;
+    for e in v.iter() {
+        prod += e * e;
+    }
+
+    prod.sqrt()
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::vector::{add, dot, mul, sub, Error};
+    use crate::vector::{add, dot, mul, norm, sub, Error};
 
     #[test]
     fn add_error() {
@@ -129,7 +138,15 @@ mod tests {
         let v = vec![1.0, 2.0, 3.0];
         let w = vec![1.0, 2.0, 3.0];
 
-        let product = dot(&v, &w).unwrap();
-        assert_eq!(14.0, product)
+        let prod = dot(&v, &w).unwrap();
+        assert_eq!(14.0, prod)
+    }
+
+    #[test]
+    fn norm_ok() {
+        let v = vec![1.0, 2.0, 3.0];
+
+        let mag = norm(&v);
+        assert_eq!(3.7416575, mag);
     }
 }
