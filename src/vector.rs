@@ -115,9 +115,13 @@ pub fn cross(v: &Vector, w: &Vector) -> Result<Vector, Error> {
     Ok(vec![x, y, z])
 }
 
+pub fn unit_vec(v: &Vector) -> f32 {
+    1. / norm(v)
+}
+
 #[cfg(test)]
 mod tests {
-    use crate::vector::{add, cross, dot, e_mul, mul, norm, outer, sub, Error};
+    use crate::vector::{add, cross, dot, e_mul, mul, norm, outer, sub, unit_vec, Error};
 
     #[test]
     fn add_error() {
@@ -222,5 +226,14 @@ mod tests {
         let got = cross(&v, &w).unwrap();
         let expect = vec![-3., 6., -3.];
         assert_eq!(expect, got)
+    }
+
+    #[test]
+    fn unit_ok() {
+        let v = vec![1., 2., 3.];
+
+        let got = unit_vec(&v);
+        let expect = 0.26726124;
+        assert_eq!(expect, got);
     }
 }
