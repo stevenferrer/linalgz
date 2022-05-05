@@ -41,6 +41,16 @@ pub fn sub(v: &Vector, w: &Vector) -> Result<Vector, Error> {
     Ok(t)
 }
 
+pub fn div(v: &Vector, s: f32) -> Vector {
+    let dim = v.len();
+    let mut t = vec![0.; dim];
+    for i in 0..dim {
+        t[i] = v[i] / s;
+    }
+
+    t
+}
+
 pub fn mul(v: &Vector, s: f32) -> Vector {
     let dim = v.len();
     let mut t = vec![0.; dim];
@@ -115,13 +125,13 @@ pub fn cross(v: &Vector, w: &Vector) -> Result<Vector, Error> {
     Ok(vec![x, y, z])
 }
 
-pub fn unit_vec(v: &Vector) -> f32 {
-    1. / norm(v)
+pub fn unit_vector(v: &Vector) -> Vector {
+    div(v, norm(v))
 }
 
 #[cfg(test)]
 mod tests {
-    use crate::vector::{add, cross, dot, e_mul, mul, norm, outer, sub, unit_vec, Error};
+    use crate::vector::{add, cross, div, dot, e_mul, mul, norm, outer, sub, unit_vector, Error};
 
     #[test]
     fn add_error() {
@@ -158,6 +168,16 @@ mod tests {
 
         let got = sub(&v, &w).unwrap();
         let expect = vec![-1., 1., 2.];
+        assert_eq!(expect, got)
+    }
+
+    #[test]
+    fn div_ok() {
+        let v = vec![1., 3., 5.];
+        let s = 2.0;
+
+        let got = div(&v, s);
+        let expect = vec![0.5, 1.5, 2.5];
         assert_eq!(expect, got)
     }
 
@@ -229,11 +249,13 @@ mod tests {
     }
 
     #[test]
-    fn unit_ok() {
+    fn unit_vector_ok() {
         let v = vec![1., 2., 3.];
 
-        let got = unit_vec(&v);
-        let expect = 0.26726124;
+        let got = unit_vector(&v);
+        let expect = vec![0.26726124, 0.5345225, 0.8017837];
         assert_eq!(expect, got);
+
+        assert_eq!(1., norm(&got).ceil());
     }
 }
