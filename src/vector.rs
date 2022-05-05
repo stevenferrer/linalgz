@@ -4,6 +4,7 @@ use std::ops::Mul;
 #[derive(PartialEq, Debug, Clone)]
 pub enum Error {
     LenMismatch,
+    InvalidLen,
 }
 
 pub type Vector = Vec<f32>;
@@ -102,9 +103,21 @@ pub fn outer(v: &Vector, w: &Vector) -> Vec<Vec<f32>> {
     mat
 }
 
+pub fn cross(v: &Vector, w: &Vector) -> Result<Vector, Error> {
+    if v.len() != 3 || w.len() != 3 {
+        return Err(Error::InvalidLen);
+    }
+
+    let x = v[1] * w[2] - v[2] * w[1];
+    let y = v[2] * w[0] - v[0] * w[2];
+    let z = v[0] * w[1] - v[1] * w[0];
+
+    Ok(vec![x, y, z])
+}
+
 #[cfg(test)]
 mod tests {
-    use crate::vector::{add, dot, e_mul, mul, norm, outer, sub, Error};
+    use crate::vector::{add, cross, dot, e_mul, mul, norm, outer, sub, Error};
 
     #[test]
     fn add_error() {
@@ -196,9 +209,18 @@ mod tests {
         let w = vec![2., 4., 6.];
 
         let got = outer(&v, &w);
-
         let expect = vec![vec![2., 4., 6.], vec![4., 8., 12.], vec![6., 12., 18.]];
 
+        assert_eq!(expect, got)
+    }
+
+    #[test]
+    fn cross_ok() {
+        let v = vec![1., 2., 3.];
+        let w = vec![4., 5., 6.];
+
+        let got = cross(&v, &w).unwrap();
+        let expect = vec![-3., 6., -3.];
         assert_eq!(expect, got)
     }
 }
