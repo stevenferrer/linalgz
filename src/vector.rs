@@ -2,7 +2,7 @@ use num::traits::Float;
 use std::ops::{Add, Div, Mul, Sub};
 
 #[derive(PartialEq, Debug, Clone)]
-pub struct Vector<T: Float>(Vec<T>);
+pub struct Vector<T>(Vec<T>);
 
 pub fn dot<T: Float>(v: &Vector<T>, w: &Vector<T>) -> T {
     assert_len(v.0.len(), w.0.len());
@@ -25,15 +25,15 @@ pub fn norm<T: Float>(v: &Vector<T>) -> T {
     prod.sqrt()
 }
 
-pub fn outer<T: Float>(v: &[T], w: &[T]) -> Vec<Vec<T>> {
-    let mut mat = Vec::with_capacity(v.len());
+pub fn outer<T: Float>(v: &Vector<T>, w: &Vector<T>) -> Vector<Vector<T>> {
+    let mut mat = Vector(Vec::with_capacity(v.0.len()));
 
-    for ve in v.iter() {
-        let mut row: Vec<T> = Vec::with_capacity(w.len());
-        for we in w.iter() {
+    for ve in v.0.iter() {
+        let mut row = Vec::with_capacity(w.0.len());
+        for we in w.0.iter() {
             row.push(*ve * *we);
         }
-        mat.push(row)
+        mat.0.push(Vector(row))
     }
 
     mat
@@ -234,11 +234,15 @@ mod tests {
 
     #[test]
     fn outer_ok() {
-        let v = vec![1., 2., 3.];
-        let w = vec![2., 4., 6.];
+        let v: Vector<f32> = Vector(vec![1., 2., 3.]);
+        let w: Vector<f32> = Vector(vec![2., 4., 6.]);
 
         let got = outer(&v, &w);
-        let expect = vec![vec![2., 4., 6.], vec![4., 8., 12.], vec![6., 12., 18.]];
+        let expect = Vector(vec![
+            Vector(vec![2., 4., 6.]),
+            Vector(vec![4., 8., 12.]),
+            Vector(vec![6., 12., 18.]),
+        ]);
 
         assert_eq!(expect, got)
     }
