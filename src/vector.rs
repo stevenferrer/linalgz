@@ -1,10 +1,8 @@
-use num::traits::Float;
 use std::ops::{Add, Div, Mul, Sub};
 
-#[derive(PartialEq, Debug, Clone)]
-pub struct Vector<T>(Vec<T>);
+use crate::{Num, Vector};
 
-pub fn dot<T: Float>(v: &Vector<T>, w: &Vector<T>) -> T {
+pub fn dot<T: Num>(v: &Vector<T>, w: &Vector<T>) -> T {
     assert_len(v.0.len(), w.0.len());
 
     let mut prod = T::zero();
@@ -16,7 +14,7 @@ pub fn dot<T: Float>(v: &Vector<T>, w: &Vector<T>) -> T {
     prod
 }
 
-pub fn norm<T: Float>(v: &Vector<T>) -> T {
+pub fn norm<T: Num>(v: &Vector<T>) -> T {
     let mut prod = T::zero();
     for e in v.0.iter() {
         prod = prod + *e * *e;
@@ -25,7 +23,7 @@ pub fn norm<T: Float>(v: &Vector<T>) -> T {
     prod.sqrt()
 }
 
-pub fn outer<T: Float>(v: &Vector<T>, w: &Vector<T>) -> Vector<Vector<T>> {
+pub fn outer<T: Num>(v: &Vector<T>, w: &Vector<T>) -> Vector<Vector<T>> {
     let mut mat = Vector(Vec::with_capacity(v.0.len()));
 
     for ve in v.0.iter() {
@@ -39,7 +37,7 @@ pub fn outer<T: Float>(v: &Vector<T>, w: &Vector<T>) -> Vector<Vector<T>> {
     mat
 }
 
-pub fn cross<T: Float>(v: &Vector<T>, w: &Vector<T>) -> Vector<T> {
+pub fn cross<T: Num>(v: &Vector<T>, w: &Vector<T>) -> Vector<T> {
     assert_len(3, v.0.len());
 
     let x = v.0[1] * w.0[2] - v.0[2] * w.0[1];
@@ -49,11 +47,11 @@ pub fn cross<T: Float>(v: &Vector<T>, w: &Vector<T>) -> Vector<T> {
     Vector(vec![x, y, z])
 }
 
-pub fn unit_vector<T: Float>(v: &Vector<T>) -> Vector<T> {
+pub fn unit_vector<T: Num>(v: &Vector<T>) -> Vector<T> {
     v / norm(v)
 }
 
-impl<T: Float> Add for Vector<T> {
+impl<T: Num> Add for Vector<T> {
     type Output = Vector<T>;
 
     fn add(self, w: Self) -> Self::Output {
@@ -70,7 +68,7 @@ impl<T: Float> Add for Vector<T> {
     }
 }
 
-impl<T: Float> Sub for Vector<T> {
+impl<T: Num> Sub for Vector<T> {
     type Output = Vector<T>;
 
     fn sub(self, w: Self) -> Self::Output {
@@ -86,7 +84,7 @@ impl<T: Float> Sub for Vector<T> {
     }
 }
 
-impl<T: Float> Div<T> for &Vector<T> {
+impl<T: Num> Div<T> for &Vector<T> {
     type Output = Vector<T>;
 
     fn div(self, s: T) -> Self::Output {
@@ -100,7 +98,7 @@ impl<T: Float> Div<T> for &Vector<T> {
     }
 }
 
-impl<T: Float> Div<T> for Vector<T> {
+impl<T: Num> Div<T> for Vector<T> {
     type Output = Vector<T>;
 
     fn div(self, s: T) -> Self::Output {
@@ -108,7 +106,7 @@ impl<T: Float> Div<T> for Vector<T> {
     }
 }
 
-impl<T: Float> Mul<T> for &Vector<T> {
+impl<T: Num> Mul<T> for &Vector<T> {
     type Output = Vector<T>;
 
     fn mul(self, s: T) -> Self::Output {
@@ -122,7 +120,7 @@ impl<T: Float> Mul<T> for &Vector<T> {
     }
 }
 
-impl<T: Float> Mul<T> for Vector<T> {
+impl<T: Num> Mul<T> for Vector<T> {
     type Output = Vector<T>;
 
     fn mul(self, s: T) -> Self::Output {
@@ -130,7 +128,7 @@ impl<T: Float> Mul<T> for Vector<T> {
     }
 }
 
-impl<T: Float> Mul for &Vector<T> {
+impl<T: Num> Mul for &Vector<T> {
     type Output = Vector<T>;
 
     fn mul(self, w: Self) -> Self::Output {
@@ -146,7 +144,7 @@ impl<T: Float> Mul for &Vector<T> {
     }
 }
 
-impl<T: Float> Mul for Vector<T> {
+impl<T: Num> Mul for Vector<T> {
     type Output = Vector<T>;
 
     fn mul(self, w: Self) -> Self::Output {
