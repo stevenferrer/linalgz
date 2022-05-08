@@ -38,7 +38,8 @@ pub fn outer<T: Num<T>>(v: &Vector<T>, w: &Vector<T>) -> Vector<Vector<T>> {
         for we in w.iter() {
             row.push(*ve * *we);
         }
-        rows.0.push(Vector(row))
+
+        rows.0.push(Vector(row));
     }
 
     rows
