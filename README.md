@@ -1,6 +1,6 @@
 # linalg
 
-![test](https://github.com/stevenferrer/linalg/actions/workflows/test.yml/badge.svg)
+![test](https://github.com/stevenferrer/linalg/actions/workflows/ci.yml/badge.svg)
 
 A basic [linear algebra](https://en.wikipedia.org/wiki/Linear_algebra) library in [Rust](https://www.rust-lang.org/).
 
