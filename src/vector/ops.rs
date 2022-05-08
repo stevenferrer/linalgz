@@ -4,14 +4,20 @@ use crate::traits::Num;
 use crate::utils::assert_len;
 use crate::vector::Vector;
 
-impl<T: Num<T>> Index<usize> for Vector<T> {
+impl<T> Index<usize> for Vector<T>
+where
+    T: Num<T>,
+{
     type Output = T;
     fn index(&self, i: usize) -> &Self::Output {
         &self.0[i]
     }
 }
 
-impl<T: Num<T>> Add for Vector<T> {
+impl<T> Add for Vector<T>
+where
+    T: Num<T>,
+{
     type Output = Vector<T>;
 
     fn add(self, w: Self) -> Self::Output {
@@ -28,7 +34,10 @@ impl<T: Num<T>> Add for Vector<T> {
     }
 }
 
-impl<T: Num<T>> Sub for Vector<T> {
+impl<T> Sub for Vector<T>
+where
+    T: Num<T>,
+{
     type Output = Vector<T>;
 
     fn sub(self, w: Self) -> Self::Output {
@@ -44,7 +53,10 @@ impl<T: Num<T>> Sub for Vector<T> {
     }
 }
 
-impl<T: Num<T>> Div<T> for &Vector<T> {
+impl<T> Div<T> for &Vector<T>
+where
+    T: Num<T>,
+{
     type Output = Vector<T>;
 
     fn div(self, s: T) -> Self::Output {
@@ -58,7 +70,10 @@ impl<T: Num<T>> Div<T> for &Vector<T> {
     }
 }
 
-impl<T: Num<T>> Div<T> for Vector<T> {
+impl<T> Div<T> for Vector<T>
+where
+    T: Num<T>,
+{
     type Output = Vector<T>;
 
     fn div(self, s: T) -> Self::Output {
@@ -66,7 +81,10 @@ impl<T: Num<T>> Div<T> for Vector<T> {
     }
 }
 
-impl<T: Num<T>> Mul<T> for &Vector<T> {
+impl<T> Mul<T> for &Vector<T>
+where
+    T: Num<T>,
+{
     type Output = Vector<T>;
 
     fn mul(self, s: T) -> Self::Output {
@@ -80,7 +98,10 @@ impl<T: Num<T>> Mul<T> for &Vector<T> {
     }
 }
 
-impl<T: Num<T>> Mul<T> for Vector<T> {
+impl<T> Mul<T> for Vector<T>
+where
+    T: Num<T>,
+{
     type Output = Vector<T>;
 
     fn mul(self, s: T) -> Self::Output {
@@ -88,7 +109,10 @@ impl<T: Num<T>> Mul<T> for Vector<T> {
     }
 }
 
-impl<T: Num<T>> Mul for &Vector<T> {
+impl<T> Mul for &Vector<T>
+where
+    T: Num<T>,
+{
     type Output = Vector<T>;
 
     fn mul(self, w: Self) -> Self::Output {
@@ -104,7 +128,10 @@ impl<T: Num<T>> Mul for &Vector<T> {
     }
 }
 
-impl<T: Num<T>> Mul for Vector<T> {
+impl<T> Mul for Vector<T>
+where
+    T: Num<T>,
+{
     type Output = Vector<T>;
 
     fn mul(self, w: Self) -> Self::Output {

@@ -13,7 +13,7 @@ use crate::utils::assert_len;
 #[derive(PartialEq, Debug, Clone)]
 pub struct Vector<T>(Vec<T>);
 
-impl<T: Num<T>> Vector<T> {
+impl<T> Vector<T> {
     fn len(&self) -> usize {
         self.0.len()
     }
@@ -21,9 +21,16 @@ impl<T: Num<T>> Vector<T> {
     pub fn iter(&self) -> Iter<'_, T> {
         self.0.iter()
     }
+
+    pub fn push(&mut self, val: T) {
+        self.0.push(val)
+    }
 }
 
-impl<T: fmt::Display> fmt::Display for Vector<T> {
+impl<T> fmt::Display for Vector<T>
+where
+    T: fmt::Display,
+{
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let v = &self.0;
 
@@ -38,7 +45,10 @@ impl<T: fmt::Display> fmt::Display for Vector<T> {
     }
 }
 
-pub fn norm<T: Num<T>>(v: &Vector<T>) -> T {
+pub fn norm<T>(v: &Vector<T>) -> T
+where
+    T: Num<T>,
+{
     let mut p = T::zero();
     for e in v.iter() {
         p = p + *e * *e;
@@ -47,7 +57,10 @@ pub fn norm<T: Num<T>>(v: &Vector<T>) -> T {
     p.sqrt()
 }
 
-pub fn outer<T: Num<T>>(v: &Vector<T>, w: &Vector<T>) -> Vector<Vector<T>> {
+pub fn outer<T>(v: &Vector<T>, w: &Vector<T>) -> Vector<Vector<T>>
+where
+    T: Num<T>,
+{
     let mut rows = Vector(Vec::with_capacity(v.len()));
 
     for ve in v.iter() {
@@ -56,13 +69,16 @@ pub fn outer<T: Num<T>>(v: &Vector<T>, w: &Vector<T>) -> Vector<Vector<T>> {
             row.push(*ve * *we);
         }
 
-        rows.0.push(Vector(row));
+        rows.push(Vector(row));
     }
 
     rows
 }
 
-pub fn dot<T: Num<T>>(v: &Vector<T>, w: &Vector<T>) -> T {
+pub fn dot<T>(v: &Vector<T>, w: &Vector<T>) -> T
+where
+    T: Num<T>,
+{
     assert_len(v.len(), w.len());
 
     let mut prod = T::zero();
@@ -74,7 +90,10 @@ pub fn dot<T: Num<T>>(v: &Vector<T>, w: &Vector<T>) -> T {
     prod
 }
 
-pub fn cross<T: Num<T>>(v: &Vector<T>, w: &Vector<T>) -> Vector<T> {
+pub fn cross<T>(v: &Vector<T>, w: &Vector<T>) -> Vector<T>
+where
+    T: Num<T>,
+{
     assert_len(3, v.len());
 
     let x = v[1] * w[2] - v[2] * w[1];
@@ -84,6 +103,9 @@ pub fn cross<T: Num<T>>(v: &Vector<T>, w: &Vector<T>) -> Vector<T> {
     Vector(vec![x, y, z])
 }
 
-pub fn unit_vector<T: Num<T>>(v: &Vector<T>) -> Vector<T> {
+pub fn unit_vector<T>(v: &Vector<T>) -> Vector<T>
+where
+    T: Num<T>,
+{
     v / norm(v)
 }
