@@ -27,3 +27,6 @@ mod cross;
 
 #[cfg(test)]
 mod unit_vector;
+
+#[cfg(test)]
+mod fmt;

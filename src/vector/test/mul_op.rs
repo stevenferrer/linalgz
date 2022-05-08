@@ -1,4 +1,4 @@
-use num::Complex;
+use num_complex::Complex;
 
 use crate::vector::*;
 

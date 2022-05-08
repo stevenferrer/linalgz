@@ -3,7 +3,9 @@ mod ops;
 #[cfg(test)]
 mod test;
 
+use std::fmt;
 use std::slice::Iter;
+use std::vec::Vec;
 
 use crate::traits::Num;
 use crate::utils::assert_len;
@@ -18,6 +20,21 @@ impl<T: Num<T>> Vector<T> {
 
     pub fn iter(&self) -> Iter<'_, T> {
         self.0.iter()
+    }
+}
+
+impl<T: fmt::Display> fmt::Display for Vector<T> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let v = &self.0;
+
+        write!(f, "[")?;
+        for (cnt, e) in v.iter().enumerate() {
+            if cnt != 0 {
+                write!(f, ", ")?;
+            }
+            write!(f, "{}", e)?;
+        }
+        write!(f, "]")
     }
 }
 

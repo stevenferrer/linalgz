@@ -2,8 +2,8 @@ use std::clone::Clone;
 use std::marker::Copy;
 use std::ops::{Add, Div, Mul, Sub};
 
-use num::complex::Complex;
-use num::traits::Zero;
+use num_complex::Complex;
+use num_traits::Zero;
 
 pub trait Sqrt: Sized {
     fn sqrt(self) -> Self;
