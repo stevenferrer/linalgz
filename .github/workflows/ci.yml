@@ -8,7 +8,7 @@ on:
 
 jobs:
   check:
-    name: Cargo check
+    name: Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -25,25 +25,6 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: check
-
-  test:
-    name: Test suite
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v2
-
-      - name: Install stable toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: stable
-          override: true
-
-      - name: Run cargo test
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
 
   lints:
     name: Lints
@@ -72,8 +53,27 @@ jobs:
           command: clippy
           args: -- -D warnings
 
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          override: true
+
+      - name: Run cargo test
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+
   coverage:
-    name: Code coverage
+    name: Coverage
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -85,15 +85,16 @@ jobs:
           toolchain: stable
           override: true
 
-      - name: Run cargo-tarpaulin
+      - name: Run tarpaulin
+        id: coverage
         uses: actions-rs/tarpaulin@v0.1
         with:
-          version: '0.15.0'
-          args: '-- --test-threads 1'
+          version: "0.15.0"
+          args: "-- --test-threads 1"
 
-      - name: Coveralls upload
+      - name: Upload to coveralls.io
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          parallel: true
           path-to-lcov: ${{ steps.coverage.outputs.report }}
+          parallel: true
