@@ -6,7 +6,7 @@ A basic [linear algebra](https://en.wikipedia.org/wiki/Linear_algebra) library i
 
 ## Why?
 
-I made this library to learn linear algebra by implementing the basic operations.
+I made this library to learn linear algebra and Rust by implementing the basic operations.
 
 ## License
 
