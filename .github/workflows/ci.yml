@@ -89,12 +89,10 @@ jobs:
         id: coverage
         uses: actions-rs/tarpaulin@v0.1
         with:
-          version: "0.15.0"
-          args: "-- --test-threads 1"
+          args: "--ignore-tests --out Lcov"
 
-      - name: Upload to coveralls.io
+      - name: Upload to Coveralls
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: cobertura.xml
-          parallel: true
+          path-to-lcov: "./lcov.info"
