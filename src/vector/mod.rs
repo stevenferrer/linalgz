@@ -50,7 +50,7 @@ pub fn norm<T: Num<T>>(v: &Vector<T>) -> T {
 pub fn outer<T: Num<T>>(v: &Vector<T>, w: &Vector<T>) -> Vector<Vector<T>> {
     let mut rows = Vector(Vec::with_capacity(v.len()));
 
-    for ve in v.0.iter() {
+    for ve in v.iter() {
         let mut row = Vec::with_capacity(w.len());
         for we in w.iter() {
             row.push(*ve * *we);
