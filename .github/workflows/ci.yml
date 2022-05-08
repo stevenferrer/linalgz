@@ -8,7 +8,7 @@ on:
 
 jobs:
   check:
-    name: Check
+    name: Cargo check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -27,7 +27,7 @@ jobs:
           command: check
 
   test:
-    name: Test Suite
+    name: Test suite
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
@@ -71,3 +71,29 @@ jobs:
         with:
           command: clippy
           args: -- -D warnings
+
+  coverage:
+    name: Code coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install stable toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Run cargo-tarpaulin
+        uses: actions-rs/tarpaulin@v0.1
+        with:
+          version: '0.15.0'
+          args: '-- --test-threads 1'
+
+      - name: Coveralls upload
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel: true
+          path-to-lcov: ${{ steps.coverage.outputs.report }}
