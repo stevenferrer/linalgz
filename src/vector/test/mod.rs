@@ -1,4 +1,7 @@
 #[cfg(test)]
+mod index_op;
+
+#[cfg(test)]
 mod add_op;
 
 #[cfg(test)]

@@ -1,8 +1,15 @@
-use std::ops::{Add, Div, Mul, Sub};
+use std::ops::{Add, Div, Index, Mul, Sub};
 
 use crate::traits::Num;
 use crate::utils::assert_len;
 use crate::vector::Vector;
+
+impl<T: Num<T>> Index<usize> for Vector<T> {
+    type Output = T;
+    fn index(&self, i: usize) -> &Self::Output {
+        &self.0[i]
+    }
+}
 
 impl<T: Num<T>> Add for Vector<T> {
     type Output = Vector<T>;
@@ -14,7 +21,7 @@ impl<T: Num<T>> Add for Vector<T> {
         let mut t = Vec::with_capacity(dim);
 
         for i in 0..dim {
-            t.push(self.0[i] + w.0[i])
+            t.push(self[i] + w[i])
         }
 
         Vector(t)
@@ -30,7 +37,7 @@ impl<T: Num<T>> Sub for Vector<T> {
         let dim = self.0.len();
         let mut t = Vec::with_capacity(dim);
         for i in 0..dim {
-            t.push(self.0[i] - w.0[i]);
+            t.push(self[i] - w[i]);
         }
 
         Vector(t)
@@ -44,7 +51,7 @@ impl<T: Num<T>> Div<T> for &Vector<T> {
         let dim = self.0.len();
         let mut t = Vec::with_capacity(dim);
         for i in 0..dim {
-            t.push(self.0[i] / s);
+            t.push(self[i] / s);
         }
 
         Vector(t)
@@ -66,7 +73,7 @@ impl<T: Num<T>> Mul<T> for &Vector<T> {
         let dim = self.0.len();
         let mut t = Vec::with_capacity(dim);
         for i in 0..dim {
-            t.push(self.0[i] * s);
+            t.push(self[i] * s);
         }
 
         Vector(t)
@@ -90,7 +97,7 @@ impl<T: Num<T>> Mul for &Vector<T> {
         let dim = self.0.len();
         let mut t = Vec::with_capacity(dim);
         for i in 0..dim {
-            t.push(self.0[i] * w.0[i]);
+            t.push(self[i] * w[i]);
         }
 
         Vector(t)

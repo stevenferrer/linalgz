@@ -38,7 +38,7 @@ pub fn dot<T: Num<T>>(v: &Vector<T>, w: &Vector<T>) -> T {
     let mut prod = T::zero();
     let dim = v.0.len();
     for i in 0..dim {
-        prod = prod + v.0[i] * w.0[i];
+        prod = prod + v[i] * w[i];
     }
 
     prod
@@ -47,9 +47,9 @@ pub fn dot<T: Num<T>>(v: &Vector<T>, w: &Vector<T>) -> T {
 pub fn cross<T: Num<T>>(v: &Vector<T>, w: &Vector<T>) -> Vector<T> {
     assert_len(3, v.0.len());
 
-    let x = v.0[1] * w.0[2] - v.0[2] * w.0[1];
-    let y = v.0[2] * w.0[0] - v.0[0] * w.0[2];
-    let z = v.0[0] * w.0[1] - v.0[1] * w.0[0];
+    let x = v[1] * w[2] - v[2] * w[1];
+    let y = v[2] * w[0] - v[0] * w[2];
+    let z = v[0] * w[1] - v[1] * w[0];
 
     Vector(vec![x, y, z])
 }
