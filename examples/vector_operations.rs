@@ -1,4 +1,4 @@
-use linalg::vector::Vector;
+use linalg::vector::*;
 
 fn main() {
     let a: Vector<f32> = Vector::new(vec![1.1, 4.3, 6.2]);
@@ -9,21 +9,31 @@ fn main() {
     println!("b: {}", b);
 
     // Addition
-    let sum = &a + &b;
-    println!("sum: {}", sum);
+    println!("sum: {}", &a + &b);
 
     // Subtraction
-    let diff = &a - &b;
-    println!("difference: {}", diff);
+    println!("difference: {}", &a - &b);
 
     // Vector-scalar multiplication
-    let prod = &a * s;
-    println!("vector-scalar product: {}", prod);
+    println!("vector-scalar product: {}", &a * s);
 
-    let prod = &a * &b;
-    println!("vector-vector product: {}", prod);
+    println!("vector-vector product: {}", &a * &b);
 
     // Vector-scalar division
-    let quo = &a / s;
-    println!("quotient: {}", quo);
+    println!("quotient: {}", &a / s);
+
+    // Vector magnitude
+    println!("magnitude: {}", norm(&a));
+
+    // Outer product
+    println!("outer: {}", outer(&a, &b));
+
+    // Dot product
+    println!("dot: {}", dot(&a, &b));
+
+    // Cross product
+    println!("cross: {}", cross(&a, &b));
+
+    // Unit vector
+    println!("unit vector: {}", unit_vector(&a));
 }
