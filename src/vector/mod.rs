@@ -14,8 +14,16 @@ use crate::utils::assert_len;
 pub struct Vector<T>(Vec<T>);
 
 impl<T> Vector<T> {
-    fn len(&self) -> usize {
+    pub fn new(vec: Vec<T>) -> Vector<T> {
+        Vector(vec)
+    }
+
+    pub fn len(&self) -> usize {
         self.0.len()
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.0.is_empty()
     }
 
     pub fn iter(&self) -> Iter<'_, T> {

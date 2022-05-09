@@ -4,7 +4,7 @@ use crate::vector::*;
 
 #[test]
 fn f32() {
-    let v: Vector<f32> = Vector(vec![1., 2., 3.]);
+    let v: Vector<f32> = Vector::new(vec![1., 2., 3.]);
 
     let got = norm(&v);
     let expect = 3.7416575;
@@ -13,7 +13,7 @@ fn f32() {
 
 #[test]
 fn f64() {
-    let v: Vector<f64> = Vector(vec![1., 2., 3.]);
+    let v: Vector<f64> = Vector::new(vec![1., 2., 3.]);
 
     let got = norm(&v);
     let expect = 3.7416573867739413;
@@ -26,7 +26,7 @@ fn cmplx_f32() {
     let y = Complex::new(9., -1.);
     let z = Complex::new(0.32, 18.);
 
-    let v: Vector<Complex<f32>> = Vector(vec![x, y, z]);
+    let v: Vector<Complex<f32>> = Vector::new(vec![x, y, z]);
 
     let got = norm(&v);
     let expect = Complex::new(0.015122108, -15.871289);
@@ -39,7 +39,7 @@ fn cmplx_f64() {
     let y = Complex::new(9., -1.);
     let z = Complex::new(0.32, 18.);
 
-    let v: Vector<Complex<f64>> = Vector(vec![x, y, z]);
+    let v: Vector<Complex<f64>> = Vector::new(vec![x, y, z]);
 
     let got = norm(&v);
     let expect = Complex::new(0.01512164470464187, -15.871289445540919);
