@@ -14,12 +14,13 @@ where
     }
 }
 
-impl<T> Add for Vector<T>
+impl<T> Add for &Vector<T>
 where
     T: Num<T>,
 {
     type Output = Vector<T>;
 
+    #[inline(always)]
     fn add(self, w: Self) -> Self::Output {
         assert_len(self.len(), w.len());
 
@@ -34,7 +35,18 @@ where
     }
 }
 
-impl<T> Sub for Vector<T>
+impl<T> Add for Vector<T>
+where
+    T: Num<T>,
+{
+    type Output = Vector<T>;
+
+    fn add(self, w: Self) -> Self::Output {
+        &self + &w
+    }
+}
+
+impl<T> Sub for &Vector<T>
 where
     T: Num<T>,
 {
@@ -50,6 +62,17 @@ where
         }
 
         Vector(t)
+    }
+}
+
+impl<T> Sub for Vector<T>
+where
+    T: Num<T>,
+{
+    type Output = Vector<T>;
+
+    fn sub(self, w: Self) -> Self::Output {
+        &self - &w
     }
 }
 

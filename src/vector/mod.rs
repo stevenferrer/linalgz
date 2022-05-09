@@ -10,7 +10,7 @@ use std::vec::Vec;
 use crate::traits::Num;
 use crate::utils::assert_len;
 
-#[derive(PartialEq, Debug, Clone)]
+#[derive(Debug, Clone, PartialEq)]
 pub struct Vector<T>(Vec<T>);
 
 impl<T> Vector<T> {
