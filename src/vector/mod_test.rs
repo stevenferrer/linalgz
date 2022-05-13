@@ -1,9 +1,10 @@
 use crate::vector::*;
+use crate::*;
 
 #[test]
 fn test_fmt() {
-    let v: Vector<f32> = Vector::new(vec![1.4, 1.23, 3.34]);
-    let w = Vector::new(vec![2.8, -1.1, 1.6]);
+    let v: Vector<f32> = vector![1.4, 1.23, 3.34];
+    let w = vector![2.8, -1.1, 1.6];
 
     assert!(!v.is_empty());
 

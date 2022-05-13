@@ -1,8 +1,8 @@
-use linalg::vector::*;
+use linalg::*;
 
 fn main() {
-    let a: Vector<f32> = Vector::new(vec![1., 4., 6.]);
-    let b = Vector::new(vec![0.5, 0.7, 0.4]);
+    let a: Vector<f32> = vector![1., 4., 6.];
+    let b = vector![0.5, 0.7, 0.4];
     let s = 2.;
 
     println!("a: {}", a);
