@@ -19,7 +19,7 @@ fn test_norm() {
     let expect = 3.7416573867739413;
     assert_eq!(expect, got);
 
-    // complx
+    // complex f32
     let x = complex!(1., 3.);
     let y = complex!(9., -1.);
     let z = complex!(0.32, 18.);
@@ -28,6 +28,17 @@ fn test_norm() {
 
     let got = norm(&v);
     let expect = complex!(0.015122108, -15.871289);
+    assert_eq!(expect, got);
+
+    // complex f64
+    let x = complex!(1., 3.);
+    let y = complex!(9., -1.);
+    let z = complex!(0.32, 18.);
+
+    let v: Vector<Complex<f64>> = vector![x, y, z];
+
+    let got = norm(&v);
+    let expect = complex!(0.01512164470464187, -15.871289445540919);
     assert_eq!(expect, got);
 }
 
