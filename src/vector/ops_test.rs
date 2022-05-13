@@ -21,12 +21,24 @@ fn test_add() {
     let expect = vector![2., 4., 9.];
     assert_eq!(expect, got);
 
-    // complex
+    // complex f32
     let x = complex!(1., 3.);
     let y = complex!(9., -1.);
     let z = complex!(0.32, 81.);
 
     let v: Vector<Complex<f32>> = vector![x, y, z];
+    let w = vector![x, y, z];
+
+    let got = v + w;
+    let expect = vector![x + x, y + y, z + z];
+    assert_eq!(expect, got);
+
+    // complex f64
+    let x = complex!(1., 3.);
+    let y = complex!(9., -1.);
+    let z = complex!(0.32, 81.);
+
+    let v: Vector<Complex<f64>> = vector![x, y, z];
     let w = vector![x, y, z];
 
     let got = v + w;
