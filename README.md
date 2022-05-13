@@ -9,11 +9,6 @@ A basic [linear algebra](https://en.wikipedia.org/wiki/Linear_algebra) library f
 
 I made this library to learn linear algebra and Rust by implementing the basic operations.
 
-## TODO
-
-- [ ] Vector macro
-- [ ] Compex macro
-
 ## License
 
 [MIT](LICENSE)
