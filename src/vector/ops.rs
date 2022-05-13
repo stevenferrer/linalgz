@@ -20,7 +20,6 @@ where
 {
     type Output = Vector<T>;
 
-    #[inline(always)]
     fn add(self, w: Self) -> Self::Output {
         assert_len(self.len(), w.len());
 
