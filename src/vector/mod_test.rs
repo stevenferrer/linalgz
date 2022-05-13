@@ -1,7 +1,7 @@
 use crate::vector::*;
 
 #[test]
-fn fmt() {
+fn test_fmt() {
     let v: Vector<f32> = Vector::new(vec![1.4, 1.23, 3.34]);
     let w = Vector::new(vec![2.8, -1.1, 1.6]);
 
