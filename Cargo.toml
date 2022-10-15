@@ -4,6 +4,7 @@ description = "A simple linear algebra library for Rust."
 edition = "2021"
 license = "MIT"
 name = "linalgz"
+repository = "https://github.com/stevenferrer/linalgz"
 version = "0.1.0"
 
 [dependencies]
