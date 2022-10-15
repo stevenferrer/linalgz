@@ -1,8 +1,8 @@
 [package]
-name = "linalg"
-version = "0.1.0"
-edition = "2021"
 autoexamples = true
+edition = "2021"
+name = "linalgz"
+version = "0.1.0"
 
 [dependencies]
 num-complex = "0.4"

@@ -17,7 +17,7 @@ impl<T> Vector<T> {
     ///
     /// # Example
     /// ```
-    /// use linalg::*;
+    /// use linalgz::*;
     ///
     /// let v = Vector::new(vec![1, 2, 3]);
     /// assert_eq!(v, vector![1, 2, 3])
@@ -30,7 +30,7 @@ impl<T> Vector<T> {
     ///
     /// # Example
     /// ```
-    /// use linalg::*;
+    /// use linalgz::*;
     ///
     /// let v = vector![1, 2, 3];
     /// assert_eq!(v.len(), 3);
@@ -43,7 +43,7 @@ impl<T> Vector<T> {
     ///
     /// # Example
     /// ```
-    /// use linalg::*;
+    /// use linalgz::*;
     ///
     /// let v: Vector<i32> = vector![];
     /// assert!(v.is_empty());
@@ -56,7 +56,7 @@ impl<T> Vector<T> {
     ///
     /// # Example
     /// ```
-    /// use linalg::*;
+    /// use linalgz::*;
     ///
     /// let v = vector![1, 2, 3];
     /// for e in v.iter() {
@@ -71,7 +71,7 @@ impl<T> Vector<T> {
     ///
     /// # Example
     /// ```
-    /// use linalg::*;
+    /// use linalgz::*;
     ///
     /// let mut v = vector![1, 2, 3];
     /// v.push(4);

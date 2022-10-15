@@ -5,7 +5,7 @@
 /// # Example
 ///
 /// ```
-/// use linalg::*;
+/// use linalgz::*;
 ///
 /// let v = vector![1, 2, 3];
 /// assert_eq!(v, Vector::new(vec![1, 2, 3]));
@@ -27,7 +27,7 @@ macro_rules! vector {
 ///
 /// # Example
 /// ```
-/// use linalg::*;
+/// use linalgz::*;
 /// use num_complex::Complex;
 ///
 /// let x = complex!(7., 3.);

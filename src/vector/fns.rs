@@ -6,7 +6,7 @@ use crate::vector::Vector;
 ///
 /// # Example
 /// ```
-/// use linalg::*;
+/// use linalgz::*;
 ///
 /// let v: Vector<f32> = vector![1., 2., 3.];
 /// let got = norm(&v);
@@ -29,7 +29,7 @@ where
 ///
 /// # Example
 /// ```
-/// use linalg::*;
+/// use linalgz::*;
 ///
 /// let v = vector![1., 2., 3.];
 /// let w = vector![2., 4., 6.];
@@ -63,7 +63,7 @@ where
 ///
 /// # Example
 /// ```
-/// use linalg::*;
+/// use linalgz::*;
 ///
 /// let v = vector![1., 2., 3.];
 /// let w = vector![1., 2., 3.];
@@ -89,7 +89,7 @@ where
 ///
 /// # Example
 /// ```
-/// use linalg::*;
+/// use linalgz::*;
 ///
 /// let v = vector![1., 2., 3.];
 /// let w = vector![4., 5., 6.];
@@ -114,7 +114,7 @@ where
 ///
 /// # Example
 /// ```
-/// use linalg::*;
+/// use linalgz::*;
 ///
 /// let v: Vector<f32> = vector![1., 2., 3.];
 ///

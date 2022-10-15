@@ -1,6 +1,6 @@
-//! # linalg
+//! # linalgz
 //!
-//! `linalg` is a simple linear algebra library for Rust.
+//! `linalgz` is a simple linear algebra library for Rust.
 
 mod traits;
 

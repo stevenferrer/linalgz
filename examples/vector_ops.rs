@@ -1,4 +1,4 @@
-use linalg::*;
+use linalgz::*;
 
 fn main() {
     let a: Vector<f32> = vector![1., 4., 6.];

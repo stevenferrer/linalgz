@@ -7,8 +7,8 @@ use crate::Vector;
 /// # Example
 ///
 /// ```
-/// use linalg::vector;
-/// use linalg::utils::*;
+/// use linalgz::vector;
+/// use linalgz::utils::*;
 ///
 /// let v1 = vector![1, 2, 3];
 /// let v2 = vector![4, 5, 6];
@@ -29,8 +29,8 @@ pub fn assert_lens<T>(left: &Vector<T>, right: &Vector<T>) {
 /// # Example
 ///
 /// ```
-/// use linalg::vector;
-/// use linalg::utils::*;
+/// use linalgz::vector;
+/// use linalgz::utils::*;
 ///
 /// let v = vector![1, 2, 3];
 /// assert_len(&v, 3)
