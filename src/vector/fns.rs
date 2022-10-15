@@ -1,7 +1,18 @@
 use crate::traits::Num;
-use crate::utils::assert_len;
+use crate::utils::{assert_len, assert_lens};
 use crate::vector::Vector;
 
+/// Calculates the norm for a given [Vector].
+///
+/// # Example
+/// ```
+/// use linalg::*;
+///
+/// let v: Vector<f32> = vector![1., 2., 3.];
+/// let got = norm(&v);
+/// let expect = 3.7416575;
+/// assert_eq!(expect, got);
+/// ```
 pub fn norm<T>(v: &Vector<T>) -> T
 where
     T: Num<T>,
@@ -14,6 +25,22 @@ where
     p.sqrt()
 }
 
+/// Calculates teh outer product for the given [Vector]s.
+///
+/// # Example
+/// ```
+/// use linalg::*;
+///
+/// let v = vector![1., 2., 3.];
+/// let w = vector![2., 4., 6.];
+///
+/// let expect = vector![
+///     vector![2., 4., 6.],
+///     vector![4., 8., 12.],
+///     vector![6., 12., 18.],
+/// ];
+/// assert_eq!(expect, outer(&v, &w));
+/// ```
 pub fn outer<T>(v: &Vector<T>, w: &Vector<T>) -> Vector<Vector<T>>
 where
     T: Num<T>,
@@ -32,11 +59,22 @@ where
     rows
 }
 
+/// Calculates the dot product for the given [Vector]s.
+///
+/// # Example
+/// ```
+/// use linalg::*;
+///
+/// let v = vector![1., 2., 3.];
+/// let w = vector![1., 2., 3.];
+///
+/// assert_eq!(14., dot(&v, &w));
+/// ```
 pub fn dot<T>(v: &Vector<T>, w: &Vector<T>) -> T
 where
     T: Num<T>,
 {
-    assert_len(v.len(), w.len());
+    assert_lens(v, w);
 
     let mut prod = T::zero();
     let dim = v.len();
@@ -47,11 +85,23 @@ where
     prod
 }
 
+/// Calculates the cross product for the given [Vector].
+///
+/// # Example
+/// ```
+/// use linalg::*;
+///
+/// let v = vector![1., 2., 3.];
+/// let w = vector![4., 5., 6.];
+///
+/// let expect = vector![-3., 6., -3.];
+/// assert_eq!(expect, cross(&v, &w));
+/// ```
 pub fn cross<T>(v: &Vector<T>, w: &Vector<T>) -> Vector<T>
 where
     T: Num<T>,
 {
-    assert_len(3, v.len());
+    assert_len(v, 3);
 
     let x = v[1] * w[2] - v[2] * w[1];
     let y = v[2] * w[0] - v[0] * w[2];
@@ -60,6 +110,20 @@ where
     Vector(vec![x, y, z])
 }
 
+/// Calculates a unit vector for a given [Vector].
+///
+/// # Example
+/// ```
+/// use linalg::*;
+///
+/// let v: Vector<f32> = vector![1., 2., 3.];
+///
+/// let got = unit_vector(&v);
+/// let expect = vector![0.26726124, 0.5345225, 0.8017837];
+///
+/// assert_eq!(expect, got);
+/// assert_eq!(1., norm(&got).ceil());
+/// ```
 pub fn unit_vector<T>(v: &Vector<T>) -> Vector<T>
 where
     T: Num<T>,

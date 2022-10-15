@@ -1,3 +1,5 @@
+//! Vector type definition.
+
 mod fns;
 mod ops;
 
@@ -11,22 +13,70 @@ pub use crate::vector::fns::*;
 pub struct Vector<T>(Vec<T>);
 
 impl<T> Vector<T> {
+    /// Initializes a new [Vector] from a [Vec].
+    ///
+    /// # Example
+    /// ```
+    /// use linalg::*;
+    ///
+    /// let v = Vector::new(vec![1, 2, 3]);
+    /// assert_eq!(v, vector![1, 2, 3])
+    /// ```
     pub fn new(vec: Vec<T>) -> Vector<T> {
         Vector(vec)
     }
 
+    /// Returns the [Vector] length.
+    ///
+    /// # Example
+    /// ```
+    /// use linalg::*;
+    ///
+    /// let v = vector![1, 2, 3];
+    /// assert_eq!(v.len(), 3);
+    /// ```
     pub fn len(&self) -> usize {
         self.0.len()
     }
 
+    /// Returns true if the [Vector] is empty.
+    ///
+    /// # Example
+    /// ```
+    /// use linalg::*;
+    ///
+    /// let v: Vector<i32> = vector![];
+    /// assert!(v.is_empty());
+    /// ```
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
     }
 
+    /// Returns an [Vector] iterator.
+    ///
+    /// # Example
+    /// ```
+    /// use linalg::*;
+    ///
+    /// let v = vector![1, 2, 3];
+    /// for e in v.iter() {
+    ///     println!("{}", e)
+    /// }
+    /// ```
     pub fn iter(&self) -> Iter<'_, T> {
         self.0.iter()
     }
 
+    /// Appends a new element to the [Vector].
+    ///
+    /// # Example
+    /// ```
+    /// use linalg::*;
+    ///
+    /// let mut v = vector![1, 2, 3];
+    /// v.push(4);
+    /// assert_eq!(v, vector![1, 2, 3, 4]);
+    /// ```
     pub fn push(&mut self, val: T) {
         self.0.push(val)
     }

@@ -1,3 +1,15 @@
+//! Macro definitions.
+
+/// Similar to [vec!] macro but initializes [crate::Vector] instead.
+///
+/// # Example
+///
+/// ```
+/// use linalg::*;
+///
+/// let v = vector![1, 2, 3];
+/// assert_eq!(v, Vector::new(vec![1, 2, 3]));
+/// ```
 #[macro_export]
 macro_rules! vector {
     () => (
@@ -11,6 +23,15 @@ macro_rules! vector {
     )
 }
 
+/// Helper macro for initializing [num_complex::Complex].
+///
+/// # Example
+/// ```
+/// use linalg::*;
+/// use num_complex::Complex;
+///
+/// let x = complex!(7., 3.);
+/// assert_eq!(x, Complex::new(7., 3.));
 #[macro_export]
 macro_rules! complex {
     () => {

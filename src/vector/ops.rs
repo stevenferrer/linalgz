@@ -1,7 +1,7 @@
 use std::ops::{Add, Div, Index, Mul, Sub};
 
 use crate::traits::Num;
-use crate::utils::assert_len;
+use crate::utils::assert_lens;
 use crate::vector::Vector;
 
 impl<T> Index<usize> for Vector<T>
@@ -21,7 +21,7 @@ where
     type Output = Vector<T>;
 
     fn add(self, w: Self) -> Self::Output {
-        assert_len(self.len(), w.len());
+        assert_lens(self, w);
 
         let dim = self.len();
         let mut t = Vec::with_capacity(dim);
@@ -52,7 +52,7 @@ where
     type Output = Vector<T>;
 
     fn sub(self, w: Self) -> Self::Output {
-        assert_len(self.len(), w.len());
+        assert_lens(self, w);
 
         let dim = self.len();
         let mut t = Vec::with_capacity(dim);
@@ -138,7 +138,7 @@ where
     type Output = Vector<T>;
 
     fn mul(self, w: Self) -> Self::Output {
-        assert_len(self.len(), w.len());
+        assert_lens(self, w);
 
         let dim = self.len();
         let mut t = Vec::with_capacity(dim);
