@@ -5,10 +5,6 @@
 
 A simple [linear algebra](https://en.wikipedia.org/wiki/Linear_algebra) library for [Rust](https://www.rust-lang.org/).
 
-## Why?
-
-I made this library to learn linear algebra and Rust by implementing the basic operations.
-
 ## License
 
 [MIT](LICENSE)
