@@ -1,6 +1,8 @@
 [package]
 autoexamples = true
+desription = "A simple linear algebra library for Rust."
 edition = "2021"
+license = "MIT"
 name = "linalgz"
 version = "0.1.0"
 
